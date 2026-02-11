@@ -1,6 +1,6 @@
 name: OpenWrt
 
-on:
+于:
   workflow_dispatch:
   repository_dispatch:
     types:
@@ -127,7 +127,7 @@ jobs:
         kernel_usage: stable
         auto_kernel: false
         openwrt_size: 820
-        openwrt_ip: 192.168.1.99
+        openwrt_ip: 192.168.1.7
         build_date: ${{ env.build_date }}
 
     - if: env.build_success == 'true'
