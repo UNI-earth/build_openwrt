@@ -177,14 +177,6 @@ cp -rf ${ffdir}/patch/cgroupfs/900-mount-cgroup-v2-hierarchy-to-sys-fs-cgroup-cg
 cp -rf ${ffdir}/patch/cgroupfs/901-fix-cgroupfs-umount.patch ./feeds/packages/utils/cgroupfs-mount/patches/
 cp -rf ${ffdir}/patch/cgroupfs/902-mount-sys-fs-cgroup-systemd-for-docker-systemd-suppo.patch ./feeds/packages/utils/cgroupfs-mount/patches/
 
-p "IP/MAC 绑定"
-cp -rf ${otherdir}/imm_luci_ma/applications/luci-app-arpbind ./package/add/luci-app-arpbind
-sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' ./package/add/luci-app-arpbind/Makefile
-p "DDNS scripts aliyun"
-cp -rf ${otherdir}/sbwml_pkgs/ddns-scripts-aliyun ./package/add/
-p "Coremark"
-rm -rf ./feeds/packages/utils/coremark
-cp -rf ${otherdir}/sbwml_pkgs/coremark ./feeds/packages/utils/coremark
 p "Autocore"
 cp -rf ${otherdir}/autocore ./package/add/autocore
 sed -i 's/$(uname -m)/ARMv8 Processor/' ./package/add/autocore/files/generic/cpuinfo
@@ -192,15 +184,6 @@ sed -i 's/$(uname -m)/ARMv8 Processor/' ./package/add/autocore/files/generic/cpu
 p "替换 sing-box"
 rm -rf ./feeds/packages/net/sing-box
 cp -rf ${otherdir}/imm_pkg_ma/net/sing-box ./feeds/packages/net/sing-box
-p "v2rayA"
-rm -rf ./feeds/luci/applications/luci-app-v2raya ./feeds/packages/net/v2raya
-cp -rf ${otherdir}/imm_luci_ma/applications/luci-app-v2raya ./feeds/luci/applications/luci-app-v2raya
-cp -rf ${otherdir}/imm_pkg_ma/net/v2raya ./feeds/packages/net/v2raya
-
-p "MosDNS"
-rm -rf ./feeds/packages/net/{v2ray-geodata,mosdns}
-cp -rf ${otherdir}/openwrt-add/luci-app-mosdns ./package/add/luci-app-mosdns
-cp -rf ${otherdir}/v2ray_geodata ./package/add/v2ray-geodata
 
 p "Passwall"
 rm -rf ./feeds/packages/net/{xray-core,microsocks}
@@ -214,12 +197,6 @@ cp -rf ${otherdir}/openwrt-add/OpenWrt-mihomo ./package/add/luci-app-nikki
 p "OpenWrt-momo"
 cp -rf ${otherdir}/openwrt-momo ./package/add/luci-app-momo
 
-p "Daed"
-cp -rf ${otherdir}/openwrt-add/luci-app-daed ./package/add/
-cp -rf ${otherdir}/imm_pkg_ma/libs/libcron ./package/add/
-p "HomeProxy"
-cp -rf ${otherdir}/openwrt-add/homeproxy ./package/add/luci-app-homeproxy
-
 p "Docker 容器"
 rm -rf ./feeds/luci/applications/luci-app-dockerman
 cp -rf ${otherdir}/dockerman/applications/luci-app-dockerman ./package/add/luci-app-dockerman
@@ -229,18 +206,8 @@ pushd ./package/add/luci-app-dockerman
 bash ${ffdir}/scripts/docker.sh
 popd
 
-p "Zerotier"
-rm -rf ./feeds/luci/applications/luci-app-zerotier ./feeds/packages/net/zerotier
-cp -rf ${otherdir}/imm_luci_ma/applications/luci-app-zerotier ./feeds/luci/applications/luci-app-zerotier
-cp -rf ${otherdir}/imm_pkg_ma/net/zerotier ./feeds/packages/net/zerotier
 p "Filebrowser 文件管理器"
 cp -rf ${otherdir}/sbwml_pkgs/{luci-app-filebrowser-go,filebrowser} ./package/add/
-p "KMS 服务器"
-cp -rf ${otherdir}/sbwml_pkgs/{luci-app-vlmcsd,vlmcsd} ./package/add/
-p "FTP 服务器"
-rm -rf ./feeds/packages/net/vsftpd
-cp -rf ${otherdir}/sbwml_pkgs/luci-app-vsftpd ./package/add/luci-app-vsftpd
-cp -rf ${otherdir}/imm_pkg_ma/net/vsftpd ./feeds/packages/net/vsftpd
 
 p "Nlbw 带宽监控"
 sed -i 's,services,network,g' ./package/feeds/luci/luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json
