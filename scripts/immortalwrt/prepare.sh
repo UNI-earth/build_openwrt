@@ -51,7 +51,7 @@ wait && sync
 p "一些调整"
 p "设置默认密码 ( password )"
     sed -i 's/root:::0:99999:7:::/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.::0:99999:7:::/g' ${wrtdir}/package/base-files/files/etc/shadow
-# p "修改 IP ( 192.168.1.7 )"
+p "修改 IP ( 192.168.1.7 )"
     sed -i 's/192.168.1.1/192.168.1.7/g' ${wrtdir}/package/base-files/files/bin/config_generate
 p "编译优化"
     sed -i 's/Os/O2/g' ${wrtdir}/include/target.mk
