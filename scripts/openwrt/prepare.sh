@@ -41,7 +41,6 @@ p "下载其它仓库"
 . set_env "otherdir" "${workdir}/other"
 clone master ${immortalwrt_luci_repo} ${otherdir}/imm_luci_ma &
 clone master ${immortalwrt_pkg_repo} ${otherdir}/imm_pkg_ma &
-clone master ${v2ray_geodata_repo} ${otherdir}/v2ray_geodata &
 clone openwrt-24.10 ${autocore_arm_repo} ${otherdir}/autocore &
 clone master ${dockerman_repo} ${otherdir}/dockerman &
 clone main ${sbwml_pkgs_repo} ${otherdir}/sbwml_pkgs &
@@ -185,13 +184,6 @@ p "替换 sing-box"
 rm -rf ./feeds/packages/net/sing-box
 cp -rf ${otherdir}/imm_pkg_ma/net/sing-box ./feeds/packages/net/sing-box
 
-p "Passwall"
-rm -rf ./feeds/packages/net/{xray-core,microsocks}
-cp -rf ${otherdir}/openwrt-add/openwrt_helloworld ./package/add/
-rm -rf ./package/add/openwrt_helloworld/v2ray-geodata
-sed -i '/select PACKAGE_geoview/{n;s/default n/default y/;}' ./package/add/openwrt_helloworld/luci-app-passwall/Makefile
-sed -i '/#dde2ff/d;/#2c323c/d' ./package/add/openwrt_helloworld/luci-app-passwall/luasrc/view/passwall/global/status.htm
-
 p "OpenWrt-nikki"
 cp -rf ${otherdir}/openwrt-add/OpenWrt-mihomo ./package/add/luci-app-nikki
 p "OpenWrt-momo"
@@ -206,8 +198,8 @@ pushd ./package/add/luci-app-dockerman
 bash ${ffdir}/scripts/docker.sh
 popd
 
-p "Filebrowser 文件管理器"
-cp -rf ${otherdir}/sbwml_pkgs/{luci-app-filebrowser-go,filebrowser} ./package/add/
+p "文件管理器"
+cp -rf ${otherdir}/sbwml_pkgs/{luci-app-filemanager,filemanager} ./package/add/
 
 p "Nlbw 带宽监控"
 sed -i 's,services,network,g' ./package/feeds/luci/luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json
