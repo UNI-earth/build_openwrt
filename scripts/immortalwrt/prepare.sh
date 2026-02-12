@@ -51,8 +51,8 @@ wait && sync
 p "一些调整"
 p "设置默认密码 ( password )"
     sed -i 's/root:::0:99999:7:::/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.::0:99999:7:::/g' ${wrtdir}/package/base-files/files/etc/shadow
-p "修改 IP ( 192.168.1.7 )"
-    sed -i 's/192.168.1.1/192.168.1.7/g' ${wrtdir}/package/base-files/files/bin/config_generate
+# p "修改 IP ( 192.168.1.99 )"
+#     sed -i 's/192.168.1.1/192.168.1.99/g' ${wrtdir}/package/base-files/files/bin/config_generate
 p "编译优化"
     sed -i 's/Os/O2/g' ${wrtdir}/include/target.mk
 
@@ -168,15 +168,6 @@ cp -rf ${ffdir}/patch/cgroupfs/902-mount-sys-fs-cgroup-systemd-for-docker-system
 p "替换 sing-box"
 rm -rf ./feeds/packages/net/sing-box
 cp -rf ${otherdir}/imm_pkg_ma/net/sing-box ./feeds/packages/net/sing-box
-p "v2rayA"
-rm -rf ./feeds/luci/applications/luci-app-v2raya ./feeds/packages/net/v2raya
-cp -rf ${otherdir}/imm_luci_ma/applications/luci-app-v2raya ./feeds/luci/applications/luci-app-v2raya
-cp -rf ${otherdir}/imm_pkg_ma/net/v2raya ./feeds/packages/net/v2raya
-
-p "MosDNS"
-rm -rf ./feeds/packages/net/{v2ray-geodata,mosdns}
-cp -rf ${otherdir}/openwrt-add/luci-app-mosdns ./package/add/luci-app-mosdns
-cp -rf ${otherdir}/v2ray_geodata ./package/add/v2ray-geodata
 
 p "Passwall"
 rm -rf ./feeds/luci/applications/luci-app-passwall
@@ -191,11 +182,6 @@ p "OpenWrt-nikki"
 cp -rf ${otherdir}/openwrt-add/OpenWrt-mihomo ./package/add/luci-app-nikki
 p "OpenWrt-momo"
 cp -rf ${otherdir}/openwrt-momo ./package/add/luci-app-momo
-
-p "Daed"
-rm -rf ./feeds/luci/applications/luci-app-daed ./feeds/packages/{net/daed,libs/libcron}
-cp -rf ${otherdir}/openwrt-add/luci-app-daed ./package/add/
-cp -rf ${otherdir}/imm_pkg_ma/libs/libcron ./feeds/packages/libs/libcron
 
 p "Docker 容器"
 rm -rf ./feeds/luci/applications/luci-app-dockerman
