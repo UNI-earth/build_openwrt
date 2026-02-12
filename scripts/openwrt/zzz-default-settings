@@ -38,6 +38,18 @@ set amlogic.armcpu.maxfreq0='1512000'
 EOI
 uci commit amlogic
 
+# 启用 KMS 服务器
+uci batch << EOI
+set vlmcsd.config.enabled='1'
+set vlmcsd.config.autoactivate='1'
+set vlmcsd.config.firewall='1'
+EOI
+uci commit vlmcsd
+
+# MosDNS
+uci set mosdns.config.log_level='error'
+uci commit mosdns
+
 # Feeds 更换镜像源
 sed -i 's,downloads.openwrt.org,mirror.sjtu.edu.cn/openwrt,g' /etc/opkg/distfeeds.conf
 sed -i 's,mirrors.pku.edu.cn/openwrt,mirror.sjtu.edu.cn/openwrt,g' /etc/opkg/distfeeds.conf
@@ -50,6 +62,11 @@ uci commit network
 # 通用即插即用
 uci set upnpd.config.enabled='1'
 uci commit upnpd
+
+# V2rayA
+[ ! -d /usr/share/xray ] && mkdir -p /usr/share/xray
+[ -f /usr/share/v2ray/geoip.dat ] && ln -sf /usr/share/v2ray/geoip.dat /usr/share/xray/geoip.dat
+[ -f /usr/share/v2ray/geosite.dat ] && ln -sf /usr/share/v2ray/geosite.dat /usr/share/xray/geosite.dat
 
 # rpcd
 [ $(uci -q get rpcd.@rpcd[0].timeout) -lt 60 ] && uci set rpcd.@rpcd[0].timeout=60 && uci commit rpcd
