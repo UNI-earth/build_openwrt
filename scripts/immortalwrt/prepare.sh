@@ -169,15 +169,6 @@ p "替换 sing-box"
 rm -rf ./feeds/packages/net/sing-box
 cp -rf ${otherdir}/imm_pkg_ma/net/sing-box ./feeds/packages/net/sing-box
 
-p "Passwall"
-rm -rf ./feeds/luci/applications/luci-app-passwall
-rm -rf ./feeds/packages/lang/lua-neturl
-rm -rf ./feeds/packages/net/{chinadns-ng,dns2socks,dns2tcp,hysteria,ipt2socks,microsocks,redsocks2,shadow-tls,shadowsocks-rust,simple-obfs,tcping,trojan,trojan-plus,tuic-client,v2ray-core,v2ray-plugin,xray-core,xray-plugin}
-cp -rf ${otherdir}/openwrt-add/openwrt_helloworld ./package/add/
-rm -rf ./package/add/openwrt_helloworld/v2ray-geodata
-sed -i '/select PACKAGE_geoview/{n;s/default n/default y/;}' ./package/add/openwrt_helloworld/luci-app-passwall/Makefile
-sed -i '/#dde2ff/d;/#2c323c/d' ./package/add/openwrt_helloworld/luci-app-passwall/luasrc/view/passwall/global/status.htm
-
 p "OpenWrt-nikki"
 cp -rf ${otherdir}/openwrt-add/OpenWrt-mihomo ./package/add/luci-app-nikki
 p "OpenWrt-momo"
