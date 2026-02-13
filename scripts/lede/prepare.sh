@@ -78,8 +78,6 @@ p "启用 bash"
 sed -i 's,/bin/ash,/bin/bash,' ./package/base-files/files/{etc/passwd,usr/libexec/login.sh}
 p "确保加载 /etc/shinit"
 echo -e "\n[ -f /etc/shinit ] && . /etc/shinit" >> ./package/base-files/files/etc/profile
-p "修复 Rust CI 下载限制"
-sed -i '/--set=llvm.download-ci-llvm/s/true/false/' ./feeds/packages/lang/rust/Makefile
 
 
 p "Nginx"
@@ -170,6 +168,8 @@ clone packages-24.10 https://github.com/sbwml/feeds_packages_lang_node-prebuilt 
 p "更换 golang 版本"
 rm -rf ./feeds/packages/lang/golang
 clone 26.x https://github.com/sbwml/packages_lang_golang ./feeds/packages/lang/golang
+p "rust"
+wget https://github.com/rust-lang/rust/commit/e8d97f0.patch -O ./feeds/packages/lang/rust/patches/e8d97f0.patch
 
 p "一些补充翻译"
 echo '
@@ -224,8 +224,10 @@ p "Docker 容器"
 rm -rf ./feeds/luci/applications/luci-app-dockerman
 cp -rf ${otherdir}/dockerman/applications/luci-app-dockerman ./package/add/luci-app-dockerman
 sed -i '/auto_start/d' ./package/add/luci-app-dockerman/root/etc/uci-defaults/luci-app-dockerman
-sed -i '/^start_service/a\\t[ "$(uci -q get dockerd.globals.auto_start)" -eq "0" ] && return 1\n' ./feeds/packages/utils/dockerd/files/dockerd.init
-pushd ./package/add/luci-app-dockerman
+pushd feeds/packages
+wget -qO- https://github.com/openwrt/packages/commit/e2e5ee69.patch | patch -p1
+popd
+pushd package/add/luci-app-dockerman
 bash ${ffdir}/scripts/docker.sh
 popd
 
