@@ -41,11 +41,9 @@ p "下载其它仓库"
 . set_env "otherdir" "${workdir}/other"
 clone master ${immortalwrt_luci_repo} ${otherdir}/imm_luci_ma &
 clone master ${immortalwrt_pkg_repo} ${otherdir}/imm_pkg_ma &
-clone master ${v2ray_geodata_repo} ${otherdir}/v2ray_geodata &
 clone main ${amlogic_repo} ${otherdir}/amlogic &
 clone master ${dockerman_repo} ${otherdir}/dockerman &
 clone master ${openwrt_add_repo} ${otherdir}/openwrt-add &
-clone main ${momo_repo} ${otherdir}/openwrt-momo &
 wait && sync
 
 p "一些调整"
@@ -165,14 +163,8 @@ cp -rf ${ffdir}/patch/cgroupfs/900-mount-cgroup-v2-hierarchy-to-sys-fs-cgroup-cg
 cp -rf ${ffdir}/patch/cgroupfs/901-fix-cgroupfs-umount.patch ./feeds/packages/utils/cgroupfs-mount/patches/
 cp -rf ${ffdir}/patch/cgroupfs/902-mount-sys-fs-cgroup-systemd-for-docker-systemd-suppo.patch ./feeds/packages/utils/cgroupfs-mount/patches/
 
-p "替换 sing-box"
-rm -rf ./feeds/packages/net/sing-box
-cp -rf ${otherdir}/imm_pkg_ma/net/sing-box ./feeds/packages/net/sing-box
-
 p "OpenWrt-nikki"
 cp -rf ${otherdir}/openwrt-add/OpenWrt-mihomo ./package/add/luci-app-nikki
-p "OpenWrt-momo"
-cp -rf ${otherdir}/openwrt-momo ./package/add/luci-app-momo
 
 p "Docker 容器"
 rm -rf ./feeds/luci/applications/luci-app-dockerman
